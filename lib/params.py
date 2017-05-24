@@ -10,7 +10,9 @@ def genA(N,
     AMEANUNCOMFORTABLE = -1,
     ASTDEVUNCOMFORTABLE = 0.2,
     AMEANAPATHETIC = 0,
-    ASTDEVAPATHETIC = 0.2
+    ASTDEVAPATHETIC = 0.2,
+         
+    rng = np.random.RandomState()
     ):
     
     AMIN = AMEANUNCOMFORTABLE - 3*ASTDEVUNCOMFORTABLE
@@ -18,7 +20,7 @@ def genA(N,
     
     a = np.empty(N)
     for i in range(N):
-        choice = np.random.choice(3, p = [PEMPATHY, PUNCOMFORTABLE, PAPATHY])
+        choice = rng.choice(3, p = [PEMPATHY, PUNCOMFORTABLE, PAPATHY])
         if choice == 0:
             mu = AMEANEMPATHY
             sig = ASTDEMPATHY
@@ -28,9 +30,9 @@ def genA(N,
         else:
             mu = AMEANAPATHETIC
             sig = ASTDEVAPATHETIC
-        val = np.random.normal(mu, sig, 1)
+        val = rng.normal(mu, sig, 1)
         while val < AMIN or val > AMAX:
-            val = np.random.normal(mu, sig, 1)
+            val = rng.normal(mu, sig, 1)
         a[i] = val
     return a
 
@@ -42,6 +44,8 @@ def genB(N,
     BSTDEVESCALATE = 0.2,
     BMEANDEESCALATE = -1,
     BSTDEVDEESCALATE = 0.2,
+    
+    rng = np.random.RandomState()
     ):
     
     BMIN = BMEANDEESCALATE - 3*BSTDEVDEESCALATE
@@ -49,22 +53,24 @@ def genB(N,
 
     b = np.empty(N)
     for i in range(N):
-        choice = np.random.choice(2, p = [PESCALATE, PDEESCALATE])
+        choice = rng.choice(2, p = [PESCALATE, PDEESCALATE])
         if choice == 0:
             mu = BMEANESCALATE
             sig = BSTDEVESCALATE
         else:
             mu = BMEANDEESCALATE
             sig = BSTDEVDEESCALATE
-        val = np.random.normal(mu, sig, 1)
+        val = rng.normal(mu, sig, 1)
         while val < BMIN or val > BMAX:
-            val = np.random.normal(mu, sig, 1)
+            val = rng.normal(mu, sig, 1)
         b[i] = val
     return b
 
 def genAlpha(N,
     ALPHAMEAN = 1,
-    ALPHASTDEV = .2
+    ALPHASTDEV = .2,
+    
+    rng = np.random.RandomState()
     ):
     
     ALPHAMIN = max(0,ALPHAMEAN - 3*ALPHASTDEV)
@@ -73,15 +79,17 @@ def genAlpha(N,
     for i in range(N):
         mu = ALPHAMEAN
         sig = ALPHASTDEV
-        val = np.random.normal(mu, sig, 1)
+        val = rng.normal(mu, sig, 1)
         while val < ALPHAMIN or val > ALPHAMAX:
-            val = np.random.normal(mu, sig, 1)
+            val = rng.normal(mu, sig, 1)
         alpha[i] = val
     return alpha
     
 def genBeta(N,
     BETAMEAN = 1,
-    BETASTDEV = .2
+    BETASTDEV = .2,
+            
+    rng = np.random.RandomState()
     ):
     
     BETAMIN = max(0,BETAMEAN - 3*BETASTDEV)
@@ -91,8 +99,8 @@ def genBeta(N,
     for i in range(N):
         mu = BETAMEAN
         sig = BETASTDEV
-        val = np.random.normal(mu, sig, 1)
+        val = rng.normal(mu, sig, 1)
         while val < BETAMIN or val > BETAMAX:
-            val = np.random.normal(mu, sig, 1)
+            val = rng.normal(mu, sig, 1)
         beta[i] = val
     return beta
